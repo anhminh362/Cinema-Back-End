@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+
+use App\Models\Account;
+
+use Illuminate\Support\Facades\Hash;
+
 
 class LoginController extends Controller
 {
-    protected function store(Request $request){
-        return User::create($request->all());
+    public function login(LoginRequest $loginRequest){
+
+            $account = Account::where('email', $loginRequest->email)->first();
+
+            if (!$account || !Hash::check( $loginRequest->password, $account->password) || !$account->verify ){
+                return $this->commonResponse([],'something went wrong',404);
+            };
+            $token = $account->createToken('authToken')->plainTextToken;
+
+            return $this->commonResponse([
+                'access_token'=> $token,
+                'type token' => 'Bearer'
+            ],'',200);
     }
 }
