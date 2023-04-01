@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,6 +33,10 @@ class UserController extends Controller
         return response()->json([
             'user'=>$user
         ],200);
+    }
+
+    public function store(UserRequest $userRequest){
+        User::create($userRequest->all());
     }
 }
 
