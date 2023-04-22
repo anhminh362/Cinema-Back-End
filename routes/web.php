@@ -17,5 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('product/create',[ \App\Http\Controllers\ProductController::class,'index']);
+Route::get('account', function (){
+    return view('account.index');
+});
 
+Route::post('account',[\App\Http\Controllers\AccountController::class,'store']);
 

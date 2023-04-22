@@ -24,4 +24,8 @@ class AccountController extends Controller
         return $this->commonResponse($account);
     }
 
+    protected function store(Request $request){
+        Account::create($request->all());
+    }
+
 }

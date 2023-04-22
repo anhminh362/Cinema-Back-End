@@ -37,7 +37,11 @@ Route::middleware(['auth:sanctum'])->group(function() {
 
 });
 
-//
+Route::controller(\App\Http\Controllers\MovieController::class)->group( function () {
+   Route::get('movie/','index');
+   Route::get('movie/','show');
+   Route::post('create_movie','store');
+});
 //
 //Route::controller(\App\Http\Controllers\AccountController::class)->group(function () {
 //   Route::get('account','index');
